@@ -17,21 +17,30 @@ import org.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.SimpleTimeZone;
 
 public class Pulsa extends AppCompatActivity {
     EditText no_tujuan;
     Spinner provider;
     Spinner nominal;
+    DBHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pulsa);
+
+        db = new DBHelper(this);
 
         Button kembali = (Button) findViewById(R.id.kembali);
         Button kirim = (Button) findViewById(R.id.kirim);
         no_tujuan = (EditText) findViewById(R.id.no_tujuan);
         provider = (Spinner) findViewById(R.id.provider);
         nominal = (Spinner) findViewById(R.id.nominal);
+
+//        String no = no_tujuan.getText();
         kembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +77,16 @@ public class Pulsa extends AppCompatActivity {
         String json = gson.toJson(ob);
 
         gt.send(json);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyy");
+        String tanggal = dateFormat.format(calendar.getTime());
+
+        String no = String.valueOf(no_tujuan.getText());
+        String pro = String.valueOf(provider.getSelectedItem());
+        String nom = String.valueOf(nominal.getSelectedItem());
+
+        db.insert(no,pro, nom, tanggal);
+
 
         gt.closeBlocking();
 

@@ -35,10 +35,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE "+TABLE_NAME+" ("+
                 KEY_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                KEY_TUJUAN+" VARCHAR(12), "+
-                KEY_PROVIDER+" VARCHAR(20), "+
-                KEY_NOMINAL+" INTEGER, "+
-                KEY_TANGGAL+" DATETIME "+")";
+                KEY_TUJUAN+" TEXT, "+
+                KEY_PROVIDER+" TEXT, "+
+                KEY_NOMINAL+" TEXT, "+
+                KEY_TANGGAL+" TEXT "+")";
         db.execSQL(SQL_CREATE_MOVIE_TABLE);
     }
 
@@ -74,10 +74,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return transaksiList;
     }
 
-    public void insert(String no_tujuan, String provider, int nominal){
+    public void insert(String no_tujuan, String provider, String nominal, String waktu){
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "INSERT INTO "+TABLE_NAME+" (no_tujuan,provider,nominal,tanggal) "+
-                "VALUES('" + no_tujuan + "','" + provider + "','" + nominal + "','now()')";
+                "VALUES('" + no_tujuan + "','" + provider + "','" + nominal + "','" + waktu+"')";
         Log.e("insert sqlite ", ""+ sql);
 
         db.execSQL(sql);

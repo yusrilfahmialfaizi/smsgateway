@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DBHelper dbHelper = new DBHelper(this);
+
         Button pulsa = (Button) findViewById(R.id.pulsa);
         pulsa.setOnClickListener(new View.OnClickListener() {
             @Override
