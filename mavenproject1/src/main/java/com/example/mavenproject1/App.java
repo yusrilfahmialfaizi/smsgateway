@@ -10,6 +10,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import static java.time.LocalDateTime.now;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,23 +49,21 @@ public class App extends javax.swing.JFrame implements WebSocketListener {
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("To :");
+        jLabel1.setText("No. Tujuan : ");
 
-        jLabel2.setText("Message :");
+        jLabel2.setText("Provider : ");
 
         jLabel3.setText("Log");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -76,6 +76,24 @@ public class App extends javax.swing.JFrame implements WebSocketListener {
             }
         });
 
+        jButton2.setText("Kembali");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TELKOMSEL", "XL Axiata", "Indosat Ooredoo", "3", "Axis", "Smartfren" }));
+
+        jLabel4.setText("Nominal : ");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10000", "15000", "20000", "25000", "50000", "100000" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,23 +101,26 @@ public class App extends javax.swing.JFrame implements WebSocketListener {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(63, 63, 63))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(24, 24, 24)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -108,18 +129,24 @@ public class App extends javax.swing.JFrame implements WebSocketListener {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(133, 133, 133)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -127,14 +154,39 @@ public class App extends javax.swing.JFrame implements WebSocketListener {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String no_tujuan = jTextField1.getText();
+        String provider = (String) jComboBox1.getSelectedItem();
+        String nominal = (String) jComboBox2.getSelectedItem();
         JsonObject object = new JsonObject();
-        object.add("to", new JsonPrimitive(jTextField1.getText()));
-        object.add("message", new JsonPrimitive(jTextArea1.getText()));
+        object.add("to", new JsonPrimitive(no_tujuan));
+        
+        String message = "Terimakasih, isi pulsa "+provider+" dengan nominal "+nominal+" telah berhasil !!!";
+        object.add("message", new JsonPrimitive(message));
         
         String json = gson.toJson(object);
-        
+        try{
+            String query = "INSERT INTO transaksi (no_tujuan,provider,nominal,tanggal) VALUES('"+no_tujuan+"','"+provider+"','"+nominal+"','"+now()+"')";
+            java.sql.Connection conn = (Connection) config.configDB();
+            java.sql.PreparedStatement ps = conn.prepareStatement(query);
+            ps.execute();
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
         client.send(json);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Beranda b = new Beranda();
+        b.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,12 +225,14 @@ public class App extends javax.swing.JFrame implements WebSocketListener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
@@ -208,6 +262,7 @@ public class App extends javax.swing.JFrame implements WebSocketListener {
     
     @Override
     public void onMessage(String message) {
+        String no_tujuan = jTextField1.getText();
         JsonObject json = gson.fromJson(message, JsonObject.class);
         if(json.get("type").getAsString().equals("success")){
             String msg = json.get("message").getAsString();
@@ -219,24 +274,25 @@ public class App extends javax.swing.JFrame implements WebSocketListener {
             String msg = json.get("message").getAsString();
             jTextArea2.setAutoscrolls(true);
             if(json.get("success").getAsBoolean()){
-                jTextArea2.append("Laporan pengiriman sukses : " + msg);
+                jTextArea2.append("Laporan pengiriman sukses : " + msg + " to " +no_tujuan);
             }else{
-                jTextArea2.append("Laporan Pengiriman gagal : " + msg);
+                jTextArea2.append("Laporan Pengiriman gagal : " + msg + " to " +no_tujuan);
             }
             jTextArea2.append("\n");
-        }else if(json.get("type").getAsString().equals("received")){
-            String msg = json.get("message").getAsString();
-            String from = json.get("from").getAsString();
-            
-            int result = JOptionPane.showConfirmDialog(this, new String[]{
-                "SMS dari " + from + "dengan pesan : ",
-                msg,
-                "Apakah Anda ingin balas ?"
-            });
-            if( result == JOptionPane.OK_OPTION){
-                jTextField1.setText(from);
-                jTextArea1.setText("");
-            }
         }
+//        }else if(json.get("type").getAsString().equals("received")){
+//            String msg = json.get("message").getAsString();
+//            String from = json.get("from").getAsString();
+//            
+//            int result = JOptionPane.showConfirmDialog(this, new String[]{
+//                "SMS dari " + from + "dengan pesan : ",
+//                msg,
+//                "Apakah Anda ingin balas ?"
+//            });
+//            if( result == JOptionPane.OK_OPTION){
+//                jTextField1.setText(from);
+////                jTextArea1.setText("");
+//            }
+//        }
     }
 }

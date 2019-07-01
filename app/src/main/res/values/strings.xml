@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Client</string>
+    <string-array name="Provider">
+        <item>TELKOMSEL</item>
+        <item>XL Axiata</item>
+        <item>Indosat Ooredoo</item>
+        <item>Axis</item>
+        <item>3</item>
+        <item>Smartfren</item>
+    </string-array>
+    <string-array name="Nominal">
+        <item>5000</item>
+        <item>10000</item>
+        <item>15000</item>
+        <item>20000</item>
+        <item>25000</item>
+        <item>50000</item>
+        <item>100000</item>
+    </string-array>
+</resources>

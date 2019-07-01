@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:context=".Pulsa"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/notitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No. Tujuan : "/>
+        <EditText
+            android:id="@+id/no_tujuan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:layout_toRightOf="@+id/notitle"
+            android:autofillHints="Provider"
+            tools:ignore="LabelFor" />
+        <TextView
+            android:id="@+id/titleprovider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Provider : "
+            android:paddingTop="10dp"
+            android:layout_below="@+id/no_tujuan"/>
+
+        <Spinner
+            android:id="@+id/provider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/Provider"
+            android:layout_below="@+id/no_tujuan"
+            android:paddingTop="10dp"
+            android:layout_toRightOf="@+id/titleprovider" />
+        <TextView
+            android:id="@+id/titlenominal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Nominal : "
+            android:layout_below="@+id/provider"/>
+
+        <Spinner
+            android:id="@+id/nominal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/Nominal"
+            android:layout_toRightOf="@+id/titlenominal"
+            android:paddingTop="10dp"
+            android:layout_below="@+id/provider" />
+        <Button
+            android:id="@+id/kirim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kirim"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/nominal"/>
+        <Button
+            android:id="@+id/kembali"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kembali"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/nominal"
+            android:layout_toRightOf="@+id/kirim"
+            android:layout_toEndOf="@+id/kirim"/>
+    </RelativeLayout>
+</LinearLayout>
