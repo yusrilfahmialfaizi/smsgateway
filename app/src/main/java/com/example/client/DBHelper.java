@@ -21,11 +21,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME = "transaksi";
 
-    private static final String KEY_ID = "id_transaksi";
-    private static final String KEY_TUJUAN= "no_tujuan";
-    private static final String KEY_PROVIDER = "provider";
-    private static final String KEY_NOMINAL = "nominal";
-    private static final String KEY_TANGGAL = "tanggal";
+    public static final String KEY_ID = "id_transaksi";
+    public static final String KEY_TUJUAN= "no_tujuan";
+    public static final String KEY_PROVIDER = "provider";
+    public static final String KEY_NOMINAL = "nominal";
+    public static final String KEY_TANGGAL = "tanggal";
 
     public DBHelper(Context context){
         super(context, DATABASE_NAME,null,DATABASE_VERSION);
@@ -64,6 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 map.put(KEY_PROVIDER,cursor.getString(2));
                 map.put(KEY_NOMINAL,cursor.getString(3));
                 map.put(KEY_TANGGAL,cursor.getString(4));
+                transaksiList.add(map);
             }while (cursor.moveToNext());
 
 
