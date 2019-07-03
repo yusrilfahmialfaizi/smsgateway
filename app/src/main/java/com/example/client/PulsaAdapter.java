@@ -18,9 +18,9 @@ import java.util.HashMap;
 public class PulsaAdapter extends RecyclerView.Adapter<PulsaAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<HashMap<String, String>> mBarang;
+    private ArrayList<String> mBarang;
 
-    public PulsaAdapter(Sms barang, ArrayList<HashMap<String,String>> mBarang) {
+    public PulsaAdapter(Sms barang, ArrayList<String> mBarang) {
         this.mContext = barang;
         this.mBarang = mBarang;
     }
@@ -33,12 +33,15 @@ public class PulsaAdapter extends RecyclerView.Adapter<PulsaAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.id_transaksi.setText(mBarang.get(position).get("id_transaksi"));
-        holder.no_tujuan.setText(mBarang.get(position).get("no_tujuan"));
-        holder.provider.setText(mBarang.get(position).get("provider"));
-        holder.nominal.setText(mBarang.get(position).get("nominal"));
-        holder.tanggal.setText(mBarang.get(position).get("tanggal"));
-        Toast.makeText(mContext,mBarang.get(position).get("id_transaksi"),Toast.LENGTH_LONG).show();
+//        for (int i = 0;i<mBarang.size();i++){
+//            Toast.makeText(mContext,mBarang.get(i).get("id_transaksi"),Toast.LENGTH_LONG).show();
+//        }
+        String[] row_items = mBarang.get(position).split("__");
+        holder.id_transaksi.setText(row_items[0]);
+        holder.no_tujuan.setText(row_items[1]);
+        holder.provider.setText(row_items[2]);
+        holder.nominal.setText(row_items[3]);
+        holder.tanggal.setText(row_items[4]);
     }
 
     @Override
